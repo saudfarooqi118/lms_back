@@ -26,15 +26,20 @@ await app.register(authRoutes);
 await app.register(userRoutes);
 await app.register(bookRoutes, { prefix: "/api/books" });
 
+app.get('/', async (request, reply) => {
+  return { status: 'Backend is running ✅' };
+});
+
 // Start server
 const start = async () => {
-    try {
-        await app.listen({ port: process.env.PORT || 4000 });
-        console.log(`🚀 Server running on http://localhost:${process.env.PORT || 4000}`);
-    } catch (err) {
-        app.log.error(err);
-        process.exit(1);
-    }
+  try {
+    const PORT = process.env.PORT || 4000;
+    await app.listen({ port: PORT, host: '0.0.0.0' });
+    console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
+  } catch (err) {
+    app.log.error(err);
+    process.exit(1);
+  }
 };
 
 start();
