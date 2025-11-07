@@ -59,7 +59,7 @@ export const login = async (request, reply) => {
       httpOnly: true,
       path: '/',
       sameSite: 'none',
-      secure: process.env.NODE_ENV === 'production',
+      secure: true,
       maxAge: 7 * 24 * 60 * 60,
     });
 
