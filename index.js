@@ -13,22 +13,14 @@ const app = Fastify({ logger: true });
 
 // Register middlewares
 await app.register(cors, {
-  origin: (origin, cb) => {
-    // allow localhost and your Vercel domain
-    const allowedOrigins = [
-      'http://localhost:3000',
-      'https://lmsfrontvercel.vercel.app',
-    ];
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      // Request from allowed origin
-      cb(null, true);
-    } else {
-      cb(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: [
+    'http://localhost:3000',           // local frontend
+    'https://lmsfrontvercel.vercel.app' // deployed frontend
+  ],
   credentials: true,               // allow cookies
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+   preflight: true,
 });
 await app.register(fastifyCookie, {
   secret: process.env.JWT_SECRET, // optional for signed cookies
