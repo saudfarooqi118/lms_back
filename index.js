@@ -13,12 +13,15 @@ const app = Fastify({ logger: true });
 
 // Register middlewares
 await app.register(cors, {
-    origin: 'http://localhost:3000', // your Next.js app
-    credentials: true,               // allow cookies
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  origin: [
+    'http://localhost:3000',           // local frontend
+    'https://lmsfrontvercel.vercel.app' // deployed frontend
+  ],
+  credentials: true,               // allow cookies
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 });
 await app.register(fastifyCookie, {
-    secret: process.env.JWT_SECRET, // optional for signed cookies
+  secret: process.env.JWT_SECRET, // optional for signed cookies
 });
 
 // Register routes
