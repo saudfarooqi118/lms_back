@@ -58,8 +58,8 @@ export const login = async (request, reply) => {
     reply.setCookie('token', token, {
       httpOnly: true,
       path: '/',
-      sameSite: 'none',
-      secure: false,
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: process.env.NODE_ENV === "production",
       maxAge: 7 * 24 * 60 * 60,
     });
 
