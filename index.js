@@ -34,15 +34,6 @@ app.get('/', async (request, reply) => {
   return { status: 'Backend is running ✅' };
 });
 
-app.options('/*', async (req, reply) => {
-  reply
-    .header('Access-Control-Allow-Origin', req.headers.origin || '*')
-    .header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
-    .header('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    .header('Access-Control-Allow-Credentials', 'true')
-    .send();
-});
-
 // Start server
 const start = async () => {
   try {
