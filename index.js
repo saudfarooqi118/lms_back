@@ -19,6 +19,7 @@ await app.register(cors, {
   ],
   credentials: true,               // allow cookies
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 });
 await app.register(fastifyCookie, {
   secret: process.env.JWT_SECRET, // optional for signed cookies
@@ -31,6 +32,15 @@ await app.register(bookRoutes, { prefix: "/api/books" });
 
 app.get('/', async (request, reply) => {
   return { status: 'Backend is running ✅' };
+});
+
+app.options('/*', async (req, reply) => {
+  reply
+    .header('Access-Control-Allow-Origin', req.headers.origin || '*')
+    .header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
+    .header('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    .header('Access-Control-Allow-Credentials', 'true')
+    .send();
 });
 
 // Start server
