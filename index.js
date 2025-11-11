@@ -19,8 +19,6 @@ await app.register(cors, {
   ],
   credentials: true,               // allow cookies
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-   preflight: true,
 });
 await app.register(fastifyCookie, {
   secret: process.env.JWT_SECRET, // optional for signed cookies
